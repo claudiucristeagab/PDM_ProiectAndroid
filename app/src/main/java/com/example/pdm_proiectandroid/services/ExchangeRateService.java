@@ -1,7 +1,17 @@
 package com.example.pdm_proiectandroid.services;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.pdm_proiectandroid.ApiStrings;
 import com.example.pdm_proiectandroid.entities.ExchangeRate;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,63 +20,59 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class ExchangeRateService {
 
-    public ExchangeRateService(){
+    private OkHttpClient httpClient;
+    private Gson jsonParser;
 
+    public ExchangeRateService() {
+        httpClient = new OkHttpClient();
+        jsonParser = new Gson();
     }
 
     public ExchangeRate getTodayRates(String currencyName) throws IOException {
         String apiUrl = ApiStrings.Latest + currencyName;
 
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/json");
+        ExchangeRate exchangeRate;
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .build();
 
-        int responseCode = connection.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + apiUrl);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        try (Response response = httpClient.newCall(request).execute()) {
+            String json = response.body().string();
+            Log.e("API", json);
+            exchangeRate = jsonParser.fromJson(json, ExchangeRate.class);
+            Log.e("ExchangeRate", exchangeRate.toString());
         }
-        in.close();
-        System.out.println(response.toString());
-
-        ExchangeRate exchangeRate = new ExchangeRate();
+        catch (Exception e){
+            e.printStackTrace();
+            exchangeRate = new ExchangeRate();
+        }
         return exchangeRate;
     }
 
     public ExchangeRate getRatesForDate(String currencyName, Date dateTime) throws IOException {
         String apiUrl = ApiStrings.Latest + dateTime.toString() + "?base=" + currencyName;
 
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/json");
+        ExchangeRate exchangeRate;
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .build();
 
-        int responseCode = connection.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + apiUrl);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        try (Response response = httpClient.newCall(request).execute()) {
+            String json = response.body().string();
+            Log.e("API", json);
+            exchangeRate = jsonParser.fromJson(json, ExchangeRate.class);
+            Log.e("ExchangeRate", exchangeRate.toString());
         }
-        in.close();
-        System.out.println(response.toString());
-
-        ExchangeRate exchangeRate = new ExchangeRate();
+        catch (Exception e){
+            e.printStackTrace();
+            exchangeRate = new ExchangeRate();
+        }
         return exchangeRate;
     }
 }
