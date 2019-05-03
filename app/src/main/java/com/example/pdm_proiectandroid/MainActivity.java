@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.pdm_proiectandroid.entities.Currency;
 import com.example.pdm_proiectandroid.entities.ExchangeRate;
 import com.example.pdm_proiectandroid.services.ExchangeRateService;
 
@@ -32,9 +26,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ExchangeRateService exchangeRateService;
+    private Currency currentCurrency;
 
     public MainActivity(){
         exchangeRateService = new ExchangeRateService();
+        currentCurrency = new Currency();
     }
 
     @Override
@@ -66,13 +62,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ExchangeRate exchangeRate;
-        try {
-            exchangeRate = exchangeRateService.getTodayRates("EUR");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String a;
+        getTodayRates();
     }
 
     @Override
@@ -130,5 +120,23 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getTodayRates(){
+        String currencyName = "";
+
+        if((currencyName == null) || (currencyName == "")) {
+            currencyName = ApiStrings.DefaultCurrency;
+        }
+        else {
+            currencyName = currentCurrency.getName();
+        }
+
+        ExchangeRate exchangeRate;
+        try {
+            exchangeRate = exchangeRateService.getTodayRates("EUR");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
