@@ -3,9 +3,11 @@ package com.example.pdm_proiectandroid.widgets;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.pdm_proiectandroid.R;
+import com.example.pdm_proiectandroid.services.RateWidgetService;
 
 /**
  * Implementation of App Widget functionality.
@@ -16,9 +18,12 @@ public class RateWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
+
+        Intent intent = new Intent(context, RateWidgetService.class);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.rate_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setRemoteAdapter(R.id.appwidget_list, intent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
