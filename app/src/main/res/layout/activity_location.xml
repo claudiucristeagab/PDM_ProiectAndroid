@@ -12,10 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="location_btn_click"
-        android:text="Get currency"/>
+        android:text="@string/location_btn"/>
     <TextView
         android:id="@+id/location_countryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/location_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="location_btn_click2"
+        android:text="@string/location_btn2"/>
 
 </LinearLayout>

@@ -13,8 +13,25 @@ public class LocationToCurrencyService {
         Currency currency = new Currency();
 
         switch (country){
+            case "Canada":{
+                currency.setName("CAD");
+                break;
+            }
+            case "Romania":{
+                currency.setName("RON");
+                break;
+            }
+            case "Switzerland":{
+                currency.setName("CHF");
+                break;
+            }
+            case "United States":{
+                currency.setName("USD");
+                break;
+            }
             default:{
                 currency.setName(ApiStrings.DefaultCurrency);
+                break;
             }
         }
 

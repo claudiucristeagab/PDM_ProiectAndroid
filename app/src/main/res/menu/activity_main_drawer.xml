@@ -16,10 +16,6 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Despre" />
-        <item
-            android:id="@+id/nav_location"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Locatie" />
     </group>
 
 </menu>
