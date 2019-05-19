@@ -106,6 +106,11 @@ public class RateListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        ExchangeRate exchangeRate = getTodayRates();
+        ArrayList<Rate> rates = exchangeRateService.hashToList(exchangeRate);
+        RecyclerView recyclerView = getView().findViewById(R.id.rv_rate_list);
+        recyclerView.setAdapter(new RatesAdapter(rates));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
     }
 
     /**

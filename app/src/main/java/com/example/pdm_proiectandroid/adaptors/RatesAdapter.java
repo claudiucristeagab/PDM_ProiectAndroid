@@ -12,6 +12,8 @@ import com.example.pdm_proiectandroid.entities.Rate;
 
 import java.util.ArrayList;
 
+import static com.example.pdm_proiectandroid.MainActivity.SelectedCurrency;
+
 public class RatesAdapter extends RecyclerView.Adapter<RatesAdapter.ViewHolder> {
 
     ArrayList<Rate> rateList = new ArrayList<>();
@@ -33,7 +35,7 @@ public class RatesAdapter extends RecyclerView.Adapter<RatesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull RatesAdapter.ViewHolder viewHolder, int i) {
         Rate rate = rateList.get(i);
         viewHolder.rate_name.setText(rate.getName());
-        viewHolder.rate_value.setText(Double.toString(rate.getValue()));
+        viewHolder.rate_value.setText(rate.getValue() + " " + SelectedCurrency.getName());
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.pdm_proiectandroid.ApiStrings;
 import com.example.pdm_proiectandroid.entities.ExchangeRate;
 import com.example.pdm_proiectandroid.entities.Rate;
 import com.example.pdm_proiectandroid.services.ExchangeRateService;
@@ -51,7 +52,6 @@ public class RateFactory implements RemoteViewsService.RemoteViewsFactory {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), android.R.layout.simple_list_item_1);
         Rate rate = rates.get(position);
         remoteViews.setTextViewText(android.R.id.text1, rate.getName() + ": " + rate.getValue() + " " + SelectedCurrency.getName());
-        remoteViews.setTextViewText(android.R.id.text2, Double.toString(rate.getValue()));
         return remoteViews;
     }
 
@@ -80,6 +80,10 @@ public class RateFactory implements RemoteViewsService.RemoteViewsFactory {
 
         String currencyName = SelectedCurrency.getName();
 
+        if(currencyName == null || currencyName.equals(""))
+        {
+            currencyName = ApiStrings.DefaultCurrency;
+        }
         try {
             exchangeRate = exchangeRateService.getTodayRates(currencyName);
         } catch (IOException e) {

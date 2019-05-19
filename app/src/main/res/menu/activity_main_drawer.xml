@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_rate"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_euro"
             android:title="Rate de schimb" />
         <item
             android:id="@+id/nav_favorite"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_favorite"
             android:title="Favorite" />
         <item
             android:id="@+id/nav_about"
@@ -21,18 +21,5 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Locatie" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>
