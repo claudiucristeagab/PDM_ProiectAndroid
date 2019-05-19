@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,22 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pdm_proiectandroid.entities.Currency;
-import com.example.pdm_proiectandroid.entities.ExchangeRate;
-import com.example.pdm_proiectandroid.services.ExchangeRateService;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ExchangeRateService exchangeRateService;
-    private Currency currentCurrency;
+    public static Currency SelectedCurrency = new Currency();
 
     public MainActivity(){
-        exchangeRateService = new ExchangeRateService();
-        currentCurrency = new Currency();
+        SelectedCurrency.setName(ApiStrings.DefaultCurrency);
     }
 
     @Override
@@ -61,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        getTodayRates();
     }
 
     @Override
@@ -103,13 +95,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_rate) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.content_main, RateListFragment.newInstance("", ""));
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_favorite) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_location) {
 
         } else if (id == R.id.nav_share) {
 
@@ -122,21 +117,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void getTodayRates(){
-        String currencyName = "";
 
-        if((currencyName == null) || (currencyName == "")) {
-            currencyName = ApiStrings.DefaultCurrency;
-        }
-        else {
-            currencyName = currentCurrency.getName();
-        }
-
-        ExchangeRate exchangeRate;
-        try {
-            exchangeRate = exchangeRateService.getTodayRates("EUR");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

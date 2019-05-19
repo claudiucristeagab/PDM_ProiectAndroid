@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pdm_proiectandroid.ApiStrings;
 import com.example.pdm_proiectandroid.entities.ExchangeRate;
+import com.example.pdm_proiectandroid.entities.Rate;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 
 import okhttp3.OkHttpClient;
@@ -74,5 +76,22 @@ public class ExchangeRateService {
             exchangeRate = new ExchangeRate();
         }
         return exchangeRate;
+    }
+
+    public ArrayList<Rate> hashToList(ExchangeRate exchangeRate) {
+        int nrOfRates = exchangeRate.getRates().size();
+        ArrayList<Rate> list = new ArrayList<>();
+
+        ArrayList<String> names = new ArrayList(exchangeRate.getRates().keySet());
+        ArrayList<Double> values = new ArrayList(exchangeRate.getRates().values());
+
+        for(int i = 0; i<nrOfRates; i++) {
+            Rate rate = new Rate();
+            rate.setName(names.get(i));
+            rate.setValue(values.get(i));
+            list.add(rate);
+        }
+
+        return list;
     }
 }

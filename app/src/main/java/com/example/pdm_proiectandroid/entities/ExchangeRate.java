@@ -27,4 +27,28 @@ public class ExchangeRate {
                 ", Base='" + Base + '\'' +
                 '}';
     }
+
+    public HashMap<String, Double> getRates() {
+        return rates;
+    }
+
+    public void setRates(HashMap<String, Double> rates) {
+        this.rates = rates;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getBase() {
+        return Base;
+    }
+
+    public void setBase(String base) {
+        Base = base;
+    }
 }

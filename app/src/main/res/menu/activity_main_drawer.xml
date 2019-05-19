@@ -5,21 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_rate"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Rate de schimb" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Favorite" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Despre" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_location"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Locatie" />
     </group>
 
     <item android:title="Communicate">
