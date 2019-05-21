@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LocationActivity"></activity>
+        <provider
+            android:name=".providers.CurrencyContentProvider"
+            android:authorities="com.example.pdm_proiectandroid.PROVIDER"
+            android:enabled="true"
+            android:exported="true"></provider>
+
+        <activity android:name=".LocationActivity" />
 
         <receiver android:name=".widgets.RateWidget">
             <intent-filter>

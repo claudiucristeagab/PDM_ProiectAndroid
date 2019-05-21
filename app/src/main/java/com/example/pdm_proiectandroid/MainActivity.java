@@ -1,12 +1,17 @@
 package com.example.pdm_proiectandroid;
 
+import android.content.ContentProvider;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +23,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pdm_proiectandroid.entities.Currency;
+import com.example.pdm_proiectandroid.providers.CurrencyContentProvider;
+import com.example.pdm_proiectandroid.services.FavoritesService;
 import com.example.pdm_proiectandroid.services.LocationService;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +67,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FavoritesService s = new FavoritesService(this);
+        List<Currency> list = s.getAll();
+        Log.e("DB","AAA");
+
     }
 
     @Override

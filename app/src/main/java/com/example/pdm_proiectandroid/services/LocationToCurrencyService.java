@@ -17,7 +17,7 @@ public class LocationToCurrencyService {
                 currency.setName("CAD");
                 break;
             }
-            case "Romania":{
+            case "România":{
                 currency.setName("RON");
                 break;
             }
